@@ -9,3 +9,5 @@ htmlcov/
 *.sublime-workspace
 *.sublime-project
 *.zip
+dist/
+*.sublime-package

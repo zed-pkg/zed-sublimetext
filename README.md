@@ -96,16 +96,26 @@ python -m compileall -q zed_pkg_insights zed_sublimetext.py
 
 No runtime PyPI dependencies are required.
 
-## Publishing the repository
-
-With an authenticated GitHub CLI that can create repositories in `zed-pkg`:
+## Build the installable package
 
 ```sh
-./scripts/publish-repository.sh
+python scripts/build-package.py
 ```
 
-The script creates the public `zed-pkg/zed-sublimetext` repository and pushes
-`main`. It refuses to overwrite an existing remote.
+This creates `dist/ZedPackageInsights.sublime-package` with deterministic file
+ordering, timestamps, permissions, and compression. Development-only paths such
+as `.github/`, `tests/`, `scripts/`, and Zed package metadata are excluded.
+
+CI runs the Python 3.8 and 3.14 compatibility matrix first, then publishes the
+archive as a GitHub Actions artifact named `ZedPackageInsights-<commit-sha>`.
+
+## Project tracking
+
+Delivery is tracked in Linear issue
+[`DEN-2326`](https://linear.app/denman/issue/DEN-2326/zed-sublimetext-package-publish-and-track-the-sublime-text-extension)
+and the `zed-pkg-project` GitHub Project. See
+[`docs/PROJECT-TRACKING.md`](docs/PROJECT-TRACKING.md) for the canonical mapping,
+board fields, release gates, and Package Control publication checklist.
 
 ## License
 
