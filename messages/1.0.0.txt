@@ -1,0 +1,8 @@
+Zed Package Insights is installed.
+
+Open a Zed package project and run:
+
+  Command Palette -> Zed: Show Package Insights
+
+The plugin performs local, non-mutating analysis automatically. Recommended
+lifecycle commands are never run without an explicit confirmation.

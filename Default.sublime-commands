@@ -1,0 +1,18 @@
+[
+  {
+    "caption": "Zed: Refresh Package Insights",
+    "command": "zed_package_insights_refresh"
+  },
+  {
+    "caption": "Zed: Show Package Insights",
+    "command": "zed_package_insights_show"
+  },
+  {
+    "caption": "Zed: Recommended Actions",
+    "command": "zed_package_insights_actions"
+  },
+  {
+    "caption": "Preferences: Zed Package Insights Settings",
+    "command": "zed_package_insights_open_settings"
+  }
+]

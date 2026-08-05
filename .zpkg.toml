@@ -1,0 +1,34 @@
+[package]
+org = "zed-pkg"
+name = "zed-sublimetext"
+version = "0.1.0"
+description = "Sublime Text package insights and guided resolutions for Zed Package Manager projects"
+license = "MIT"
+keywords = ["sublime-text", "ide", "diagnostics", "package-manager", "zed-pkg"]
+language = "python"
+
+[package.repository]
+vcs = "git"
+url = "https://github.com/zed-pkg/zed-sublimetext"
+
+[publish]
+include_readme = true
+tag_format = "v{version}"
+exclude = [
+  ".env",
+  ".env.*",
+  ".git/**",
+  "__pycache__/**",
+  "**/__pycache__/**",
+  "*.pyc",
+  "**/*.pyc",
+  ".pytest_cache/**",
+  "*.zip",
+]
+
+[install]
+adapter = "none"
+dir = ".vendor/.zed"
+
+[scripts]
+test = "python -m unittest discover -s tests -v"

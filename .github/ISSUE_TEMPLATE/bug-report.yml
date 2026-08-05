@@ -1,0 +1,34 @@
+name: Bug report
+description: Report incorrect diagnostics, UI behavior, or action handling
+title: "[bug] "
+labels: [bug]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: Do not paste tokens or private manifest content.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: sublime
+    attributes:
+      label: Sublime Text build
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system
+    validations:
+      required: true
+  - type: input
+    id: zed
+    attributes:
+      label: zed-pkg CLI version

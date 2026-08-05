@@ -1,0 +1,14 @@
+[project]
+name = "zed-sublimetext"
+version = "0.1.0"
+description = "Sublime Text package insights and guided resolutions for Zed Package Manager projects"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+[tool.ruff]
+target-version = "py38"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["UP006", "UP007", "UP035"]

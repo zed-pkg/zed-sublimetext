@@ -1,0 +1,16 @@
+{
+  // Absolute path is recommended when the Zed editor's own `zed` launcher is also installed.
+  "zed_binary": "zed",
+
+  // Refresh after opening/activating files and after saving .zpkg.toml/.zpkg.lock.
+  "auto_refresh": true,
+
+  // Probe `zed --version` and `zed --help` to detect a missing or wrong executable.
+  "probe_cli_on_refresh": true,
+
+  // Non-mutating package scans must stay responsive.
+  "command_timeout_seconds": 8.0,
+
+  // Explicitly confirmed lifecycle actions may take longer.
+  "action_timeout_seconds": 120.0
+}

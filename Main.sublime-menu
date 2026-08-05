@@ -1,0 +1,44 @@
+[
+  {
+    "id": "preferences",
+    "children": [
+      {
+        "caption": "Package Settings",
+        "mnemonic": "P",
+        "children": [
+          {
+            "caption": "Zed Package Insights",
+            "children": [
+              {
+                "caption": "Settings",
+                "command": "zed_package_insights_open_settings"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tools",
+    "children": [
+      {
+        "caption": "Zed Package Insights",
+        "children": [
+          {
+            "caption": "Refresh",
+            "command": "zed_package_insights_refresh"
+          },
+          {
+            "caption": "Show Insights",
+            "command": "zed_package_insights_show"
+          },
+          {
+            "caption": "Recommended Actions",
+            "command": "zed_package_insights_actions"
+          }
+        ]
+      }
+    ]
+  }
+]
