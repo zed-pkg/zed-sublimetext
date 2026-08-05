@@ -49,6 +49,8 @@ Open the Command Palette and use:
 The source includes `.python-version` set to `3.8` so supported Sublime Text 4
 builds use the compatible plugin environment while newer builds can map that
 selector to their current Python host.
+A vendored MIT-licensed TOML parser provides full manifest and lockfile
+validation in the isolated Python 3.8 plugin host; no pip installation is required.
 
 ## Configuration
 

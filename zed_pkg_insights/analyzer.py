@@ -12,8 +12,8 @@ from .runner import CommandRunner
 
 try:
     import tomllib  # type: ignore[attr-defined]
-except ImportError:  # pragma: no cover - old Sublime builds using actual Python 3.8
-    tomllib = None  # type: ignore[assignment]
+except ImportError:  # pragma: no cover - exercised by Sublime's Python 3.8 host
+    from ._vendor import tomli as tomllib  # type: ignore[no-redef]
 
 
 class Analyzer:
@@ -312,8 +312,6 @@ class Analyzer:
 
 
 def _read_lockfile(path: Path) -> Tuple[Optional[Mapping[str, Any]], Optional[Diagnostic]]:
-    if tomllib is None:
-        return None, None
     try:
         with path.open("rb") as handle:
             value = tomllib.load(handle)
@@ -357,17 +355,6 @@ def _read_lockfile(path: Path) -> Tuple[Optional[Mapping[str, Any]], Optional[Di
 
 
 def _read_manifest(path: Path) -> Tuple[Optional[Mapping[str, Any]], Optional[Diagnostic]]:
-    if tomllib is None:
-        return None, Diagnostic(
-            code="ZED012",
-            severity=Severity.INFO,
-            summary="Full TOML validation is unavailable in this Sublime runtime",
-            detail=(
-                "The plugin can still inspect file state. A current Sublime Text build provides "
-                "Python with tomllib for precise manifest validation."
-            ),
-            path=path,
-        )
     try:
         with path.open("rb") as handle:
             value = tomllib.load(handle)
@@ -429,19 +416,8 @@ def _has_dependency_intent(
     if lock_data is not None:
         return any(key != "version" and bool(value) for key, value in lock_data.items())
 
-    if tomllib is not None:
-        # A malformed/unreadable lock should not be treated as proof of an empty graph.
-        return True
-
-    try:
-        meaningful_lines = [
-            line.strip()
-            for line in lockfile_path.read_text(encoding="utf-8", errors="replace").splitlines()
-            if line.strip() and not line.lstrip().startswith("#")
-        ]
-    except OSError:
-        return True
-    return meaningful_lines != ["version = 1"]
+    # A malformed or unreadable lock should not be treated as proof of an empty graph.
+    return True
 
 
 def _looks_generated_consumer(data: Mapping[str, Any], path: Path) -> bool:

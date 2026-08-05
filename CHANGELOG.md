@@ -2,6 +2,7 @@
 
 ## 0.1.0 - 2026-08-05
 
+- Bundle a Python 3.8-compatible TOML parser so diagnostics remain complete in Sublime's isolated plugin host.
 - Initial Sublime Text plugin scaffold.
 - Local package-state analyzer for manifests, locks, materialization, generated
   consumer identities, and interrupted transactions.
