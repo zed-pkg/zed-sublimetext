@@ -11,3 +11,7 @@ htmlcov/
 *.zip
 dist/
 *.sublime-package
+tmp
+temp
+tmp/worktrees
+temp/worktrees
