@@ -8,7 +8,7 @@ from zed_pkg_insights.project import find_project_root
 class ProjectDiscoveryTests(unittest.TestCase):
     def test_finds_nearest_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            root = Path(directory).resolve()
             nested = root / "apps" / "web" / "src"
             nested.mkdir(parents=True)
             (root / "apps" / "web" / ".zpkg.toml").write_text(
@@ -18,7 +18,7 @@ class ProjectDiscoveryTests(unittest.TestCase):
 
     def test_uses_native_project_root_before_window_root(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            root = Path(directory).resolve()
             app = root / "app"
             source = app / "src"
             source.mkdir(parents=True)
