@@ -11,11 +11,12 @@ htmlcov/
 *.zip
 dist/
 *.sublime-package
-tmp
-temp
 tmp/worktrees
 temp/worktrees
 
 # Sanctioned scratch locations - AGENTS.md requires both, trailing-slash form
 tmp/
 temp/
+
+# machine-local symlink to ORESoftware/my-ai AGENTS.md; never committed
+.ores/
