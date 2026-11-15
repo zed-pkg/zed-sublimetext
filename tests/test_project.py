@@ -25,15 +25,14 @@ class ProjectDiscoveryTests(unittest.TestCase):
             (app / "Cargo.toml").write_text('[package]\nname="app"\n', encoding="utf-8")
             self.assertEqual(find_project_root(source, [root]), app)
 
-
     def test_symlinked_zed_marker_does_not_shadow_native_project(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
-            (root / "Cargo.toml").write_text('[package]\\nname="app"\\n', encoding="utf-8")
+            (root / "Cargo.toml").write_text('[package]\nname="app"\n', encoding="utf-8")
             nested = root / "nested"
             (nested / "src").mkdir(parents=True)
             external = root / "untrusted.toml"
-            external.write_text('[package]\\nname="fake"\\n', encoding="utf-8")
+            external.write_text('[package]\nname="fake"\n', encoding="utf-8")
             try:
                 (nested / ".zpkg.toml").symlink_to(external)
             except (OSError, NotImplementedError) as error:
@@ -44,7 +43,7 @@ class ProjectDiscoveryTests(unittest.TestCase):
     def test_directory_named_like_lockfile_is_not_a_project_marker(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
-            (root / "Cargo.toml").write_text('[package]\\nname="app"\\n', encoding="utf-8")
+            (root / "Cargo.toml").write_text('[package]\nname="app"\n', encoding="utf-8")
             nested = root / "nested"
             (nested / "src").mkdir(parents=True)
             (nested / ".zpkg.lock").mkdir()
@@ -56,10 +55,9 @@ class ProjectDiscoveryTests(unittest.TestCase):
             root = Path(directory).resolve()
             nested = root / "app"
             (nested / "src").mkdir(parents=True)
-            (nested / ".zpkg.toml").write_text('[package]\\nname="app"\\n', encoding="utf-8")
+            (nested / ".zpkg.toml").write_text('[package]\nname="app"\n', encoding="utf-8")
             self.assertEqual(find_project_root(nested / "src"), nested)
             self.assertEqual(discover_zed_roots([root]), [nested])
-
 
 if __name__ == "__main__":
     unittest.main()
