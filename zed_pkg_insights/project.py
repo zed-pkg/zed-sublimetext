@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import stat
 from pathlib import Path
 from typing import Iterable, List, Optional, Sequence
 
@@ -36,7 +37,7 @@ def find_project_root(start: Path, window_folders: Sequence[Path] = ()) -> Path:
 
     folder_roots = [_safe_resolve(path) for path in window_folders]
     manifest_folders = [
-        folder for folder in folder_roots if (folder / MANIFEST_NAME).is_file()
+        folder for folder in folder_roots if _is_package_marker(folder / MANIFEST_NAME)
     ]
     if len(manifest_folders) == 1:
         return manifest_folders[0]
@@ -63,19 +64,33 @@ def discover_zed_roots(window_folders: Sequence[Path]) -> List[Path]:
         for candidate in candidates:
             key = str(candidate)
             if key not in seen and (
-                (candidate / MANIFEST_NAME).is_file()
-                or (candidate / LOCKFILE_NAME).is_file()
+                _is_package_marker(candidate / MANIFEST_NAME)
+                or _is_package_marker(candidate / LOCKFILE_NAME)
             ):
                 seen.add(key)
                 roots.append(candidate)
     return roots
 
 
+def _is_package_marker(path: Path) -> bool:
+    """Do not follow a forged manifest/lock symlink (or accept a directory)."""
+    try:
+        return stat.S_ISREG(path.lstat().st_mode)
+    except (OSError, ValueError):
+        return False
+
+
+def _marker_exists(path: Path) -> bool:
+    if path.name in (MANIFEST_NAME, LOCKFILE_NAME):
+        return _is_package_marker(path)
+    return path.exists()
+
+
 def _search_upward(start: Path, markers: Iterable[str]) -> Optional[Path]:
     marker_names = tuple(markers)
     current = start
     while True:
-        if any((current / marker).exists() for marker in marker_names):
+        if any(_marker_exists(current / marker) for marker in marker_names):
             return current
         if current.parent == current:
             return None
